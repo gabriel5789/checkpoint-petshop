@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Itens do Pedido</title>
+</head>
+<body>
+<div layout:fragment="conteudo">
+    <h1 class="fs-1">Insira os itens do Pedido</h1>
+    <table class="table table-hover table-stripped">
+        <thead>
+            <tr>
+                <th>Cód Produto</th>
+                <th>Descrição</th>
+                <th>Quantidade</th>
+                <th>Unidade de medida</th>
+                <th>Preço Unitário</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item:${itens}">
+                <td th:text="${item.produto.id}"></td>
+                <td th:text="${item.produto.nome}"></td>
+                <td th:text="${item.quantidade}"></td>
+                <td th:text="${item.produto.unidadeMedida.desc}"></td>
+                <td th:text="${item.preco}"></td>
+                <td>
+                    <a class="btn btn-primary" th:href="@{/pedidos/itens/editar/} + ${item.produto.id}">Editar</a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" th:href="@{/pedidos/itens/deletar/} + ${item.produto.id}">Deletar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form th:action="@{/pedidos/itens}" method="post">
+        <button type="button" class="btn btn-primary my-3 me-3" data-toggle="modal" data-target="#modalForm">
+            Cadastrar produto
+        </button>
+        <input type="submit" class="btn btn-success my-3" value="Fechar pedido"/>
+    </form>
+    <form th:action="@{/pedidos/deletar}" method="post">
+        <input type="submit" class="btn btn-danger my-3" value="Deletar Pedido">
+    </form>
+    <!-- Button trigger modal -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="modalFormLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form th:object="${itemVenda}" th:action="@{/pedidos/add-item}" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalFormLabel">Inserir item</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <label class="form-label">Código do produto</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" th:field="*{produto.id}" id="cod-produto">
+                                    <button id="pesquisar-produto-submit" class="input-group-append btn btn-success">Pesquisar</button>
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <label class="form-label">Descrição</label>
+                                <input type="text" class="form-control" id="desc-produto" disabled/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-sm-6">
+                                <label class="form-label">Quantidade</label>
+                                <input type="number" class="form-control" th:field="*{quantidade}" id="qtde-produto"/>
+                            </div>
+                            <div class="col col-sm-6">
+                                <label class="form-label">Preço</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">R$</span>
+                                    <input type="number" th:field="*{preco}" class="form-control" id="preco-produto" placeholder="Deixe vazio para usar o preço padrão">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Salvar"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById("pesquisar-produto-submit").addEventListener("click", (event) => {
+            event.preventDefault();
+            var options;
+            $.ajax({
+                type: "get",
+                url: "http://" + window.location.host + "/api/getDescProdutoById/" + $('#cod-produto').val(),
+                success: function (response) {
+                    document.getElementById("desc-produto").setAttribute("value", response);
+                }
+            });
+        })
+    </script>
+
+</div>
+</body>
+</html>

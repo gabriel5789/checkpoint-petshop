@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro</title>
+</head>
+<body>
+    <div layout:fragment="conteudo">
+        <h1 class="fs-1 my-3">Novo Pedido</h1>
+            <form action="" th:object="${pedido}" method="post">
+                <h3 class="fs-3 mt-3 mb-2">Selecione um cliente</h3>
+                <div class="input-group my-3">
+                    <div class="input-group-prepend">
+                        <select class="btn btn-outline-primary dropdown-toggle">
+                            <option class="dropdown-item" value="PF">CPF</option>
+                            <option class="dropdown-item" value="PJ">CNPJ</option>
+                        </select>
+                    </div>
+                    <input type="number" th:field="*{value}" class="form-control" placeholder="Selecione para pesquisar por CPF ou CNPJ">
+                    <div class="input-group-append">
+                        <button class="btn btn-success" id="btn-pesquisar">Pesquisar</button>
+                    </div>
+                </div>
+                <div class="row row-cols-2 my-2">
+                    <div class="col col-sm-6">
+                        <label for="nome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" disabled readonly id="nome">
+                    </div>
+                    <div class="col col-sm-6">
+                        <label for="cpf" class="form-label">CPF</label>
+                        <input type="number" class="form-control" disabled readonly id="cpf">
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col">
+                        <input type="email" class="form-control" disabled readonly id="email">
+                    </div>
+                </div>
+                <h3 class="fs-3 mt-4 mb-2">Endereço</h3>
+                <div class="row row-cols-2 my-2">
+                    <div class="col col-sm-9">
+                        <input type="text" class="form-control" disabled readonly id="nomeRua">
+                    </div>
+                    <div class="col col-sm-3">
+                        <input type="number" class="form-control" disabled readonly id="nrRua">
+                    </div>
+                </div>
+                <div class="row row-cols-3 my-2">
+                    <div class="col col-sm-4">
+                        <input type="number" class="form-control" disabled readonly id="cep">
+                    </div>
+                    <div class="col col-sm-4">
+                        <input type="text" class="form-control" disabled readonly id="complemento">
+                    </div>
+                    <div class="col col-sm-4">
+                        <input type="text" class="form-control" disabled readonly id="bairro">
+                    </div>
+                </div>
+                <div class="row row-cols-2 my-2">
+                    <div class="col col-sm-6">
+                        <label for="cidade"></label>
+                        <select id="cidade" class="form-select" disabled>
+                            <option value="">Selecione</option>
+                        </select>
+                    </div>
+                    <div class="col col-sm-3">
+                        <label for="estado"></label>
+                        <select id="estado" class="form-select" disabled>
+                            <option value = "">Selecione</option>
+                        </select>
+                    </div>
+                </div>
+                <input type="submit" value="Avançar" class="btn btn-primary my-2">
+            </form>
+        <script>
+        </script>
+    </div>
+</body>
+</html>
