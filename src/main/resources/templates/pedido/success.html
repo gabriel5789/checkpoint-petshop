@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{base}">
 <head>
-  <meta charset="UTF-8">
-  <title>Pedido realizado</title>
+	<meta charset="UTF-8">
+	<title>Pedido realizado</title>
 </head>
 <body>
 <div layout:fragment="conteudo">
-  <h1 class="fs-1">Pedido realizado com sucesso</h1>
-  <h2 class="fs-2" th:text="'Código do pedido: ' + ${codigoProduto}"></h2>
+	<h1 class="fs-1">Pedido realizado com sucesso</h1>
+	<h2 class="fs-2" th:text="'Código do pedido: ' + ${codigoProduto}"></h2>
 </div>
 </body>
 </html>

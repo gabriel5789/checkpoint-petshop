@@ -1,6 +1,5 @@
 package br.com.fiap.petshot;
 
-import br.com.fiap.petshot.connection.Conexao;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
