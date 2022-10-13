@@ -1,7 +1,10 @@
 package br.com.fiap.petshot.model;
 
+import javax.validation.constraints.NotBlank;
+
 public class UnidadeMedida {
     private Integer id;
+    @NotBlank(message = "Unidade de medida obrigatória")
     private String desc;
 
     public UnidadeMedida() {

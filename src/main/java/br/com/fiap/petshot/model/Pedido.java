@@ -1,15 +1,23 @@
 package br.com.fiap.petshot.model;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.sql.Date;
 import java.util.List;
 
 public class Pedido {
     private Integer id;
+    @NotNull
+    @PastOrPresent
     private Date dataPedido;
+    @Valid
     private Cliente cliente;
+    @Valid
     private Vendedor vendedor;
+    @Valid
     private Loja loja;
-    private List<ItemVenda> itensVenda;
+    private List<@Valid ItemVenda> itensVenda;
 
     public Pedido(Integer id, Date dataPedido, Cliente cliente, Vendedor vendedor, Loja loja, List<ItemVenda> itensVenda) {
         this.id = id;

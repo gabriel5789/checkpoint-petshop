@@ -7,6 +7,12 @@
 <body>
 <div layout:fragment="conteudo">
     <h1 class="fs-1">Insira os itens do Pedido</h1>
+    <div class="alert alert-danger" th:if="${errors} != null">
+        <p th:each="error : ${errors}" th:text="${error}"></p>
+    </div>
+    <div class="alert alert-success" th:if="${msg} != null">
+        <p th:text="${error}"></p>
+    </div>
     <table class="table table-hover table-stripped">
         <thead>
             <tr>

@@ -8,6 +8,9 @@
 <div layout:fragment="conteudo">
     <h1 class="fs-1">Editar item</h1>
     <form th:object="${itemVenda}" th:action="@{/pedidos/itens/editar}" method="post">
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+        </div>
         <div class="row">
             <div class="col-4">
                 <label class="form-label">Código do produto</label>

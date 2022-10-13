@@ -1,15 +1,23 @@
 package br.com.fiap.petshot.model;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class Endereco {
     private Integer id;
+    @NotBlank(message = "Logradouro obrigatório")
     private String nomeRua;
+    @NotNull(message = "Número da rua obrigatório")
     private Integer nrRua;
     private String complemento;
+    @NotNull(message = "CEP obrigatório")
     private Integer cep;
+    @NotBlank(message = "Bairro obrigatório")
     private String bairro;
+    @NotBlank(message = "Cidade obrigatória")
     private String cidade;
+    @NotBlank(message = "Estado obrigatório")
     private String estado;
 
     public Endereco() {

@@ -21,12 +21,12 @@ public class PedidoDAO {
         conn = Conexao.conectar();
     }
 
-    public List<Pedido> pesquisarPedidosPorCpf(Long cpf) throws SQLException {
+    public List<Pedido> pesquisarPedidosPorCpf(String cpf) throws SQLException {
         ClienteDAO clienteDAO = new ClienteDAO();
         return pesquisarPedidosPorCliente(clienteDAO.getClienteByCpf(cpf));
     }
 
-    public List<Pedido> pesquisarPedidosPorCnpj(Long cnpj) throws SQLException {
+    public List<Pedido> pesquisarPedidosPorCnpj(String cnpj) throws SQLException {
         ClienteDAO clienteDAO = new ClienteDAO();
         return pesquisarPedidosPorCliente(clienteDAO.getClienteByCnpj(cnpj));
     }

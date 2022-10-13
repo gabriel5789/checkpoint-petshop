@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,8 +37,9 @@ public class PedidosController {
     }
 
     @GetMapping("pesquisar")
-    public String pesquisar(@RequestParam("tipoCliente") String tipoCliente, @RequestParam("id") Long id, Model model) {
-        Cliente cliente=null;
+    public String pesquisar(@RequestParam("tipoCliente") String tipoCliente, @RequestParam("id") String id, Model model,
+                            RedirectAttributes redirectAttributes) {
+        Cliente cliente = null;
         try {
             if(tipoCliente.equals("PF")) {
                 cliente = new ClienteDAO().getClienteByCpf(id);
@@ -46,6 +49,12 @@ public class PedidosController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        if(cliente == null) {
+            model.addAttribute("error", "Cliente não encontrado");
+            model.addAttribute("cliente", new Cliente(null, "", new Endereco(), "", ""));
+            return "pedido/cliente";
+        }
+
         model.addAttribute("cliente", cliente);
         return "pedido/cliente";
     }
@@ -74,7 +83,12 @@ public class PedidosController {
     }
 
     @PostMapping("dados-loja")
-    public String inserirDadosLoja(@RequestParam("idLoja") Integer idLoja, @RequestParam("idVendedor") Integer idVendedor) {
+    public String inserirDadosLoja(@RequestParam("idLoja") Integer idLoja, @RequestParam("idVendedor") Integer idVendedor,
+                                   RedirectAttributes redirectAttributes) {
+        if(idLoja == null)
+            redirectAttributes.addAttribute("error", "Loja inválida");
+        else if(idVendedor == null)
+            redirectAttributes.addAttribute("error", "Vendedor inválido");
         try {
             service.setVendedor(new VendedorDAO().pesquisar(idVendedor));
             service.setLoja(new LojaDAO().pesquisar(idLoja));
@@ -91,7 +105,18 @@ public class PedidosController {
     }
 
     @PostMapping("add-item")
-    public String addItem(ItemVenda itemVenda, BindingResult result, RedirectAttributes redirectAttributes) {
+    public String addItem(@Valid ItemVenda itemVenda, BindingResult result, RedirectAttributes redirectAttributes) {
+        if(result.hasErrors()) {
+            List<ObjectError> errors = result.getAllErrors();
+            List<String> messages = new LinkedList<>();
+            StringBuilder msg = new StringBuilder();
+            for (ObjectError error: errors) {
+                messages.add(error.getDefaultMessage());
+            }
+            redirectAttributes.addFlashAttribute("errors", messages);
+            return "redirect:/pedidos/itens";
+        }
+
         ProdutoDAO dao = new ProdutoDAO();
         try {
             Produto produto = dao.pesquisar(itemVenda.getProduto().getId());
@@ -105,6 +130,7 @@ public class PedidosController {
 
         List<ItemVenda> itens = service.getItensVenda();
         System.out.println(itemVenda);
+        redirectAttributes.addFlashAttribute("msg", "Item adicionado com sucesso");
         for (ItemVenda item :
                 itens) {
             if (item.getProduto().getId().equals(itemVenda.getProduto().getId())) {

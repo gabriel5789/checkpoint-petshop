@@ -1,9 +1,19 @@
 package br.com.fiap.petshot.model;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class Produto {
+    /*
+    * TODO: Adicionar grupos de validação. Um para o processo de montagem do pedido,
+    *  e outro para o processo de criação do produto. Pesquisar no Google "spring validation groups"
+    * */
+    @NotNull(message = "Código do produto obrigatório")
     private Integer id;
     private String nome;
     private Double valor;
+    @Valid
     private UnidadeMedida unidadeMedida;
 
     public Produto() {

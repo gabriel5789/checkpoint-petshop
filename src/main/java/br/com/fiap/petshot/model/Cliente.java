@@ -1,20 +1,17 @@
 package br.com.fiap.petshot.model;
 
+import javax.validation.Valid;
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 public class Cliente {
     private Integer id;
-    @NotBlank
-    private String nome;
+    @Valid
     private Endereco endereco;
-    @NotBlank
-    private String email;
-
     protected String tipoCliente;
-
     public Cliente() {
     }
-
     public Cliente(Integer id, String nome, Endereco endereco, String email, String tipoCliente) {
         this.id = id;
         this.nome = nome;
@@ -23,6 +20,9 @@ public class Cliente {
         this.tipoCliente = tipoCliente;
     }
 
+
+    @NotBlank(message = "Nome obrigatório")
+    private String nome;
     public Integer getId() {
         return id;
     }
@@ -46,6 +46,10 @@ public class Cliente {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
+
+    @NotBlank(message = "Email obrigatório")
+    @Email(message = "Email inválido")
+    private String email;
 
     public String getEmail() {
         return email;

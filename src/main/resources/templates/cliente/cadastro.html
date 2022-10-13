@@ -7,6 +7,12 @@
 <body>
 <div layout:fragment="conteudo">
     <h1 class="fs-1 my-3">Sistema de cadastro de clientes</h1>
+    <div class="alert alert-success" th:if="${msg} != null">
+        <p th:text="${msg}"></p>
+    </div>
+    <div class="alert alert-success" th:if="${error} != null">
+        <p th:text="${error}"></p>
+    </div>
     <div class="border border-2 rounded-3">
         <ul class="nav nav-tabs bg-light ps-3 pt-3">
             <li class="nav-item">

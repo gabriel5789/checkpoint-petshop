@@ -7,6 +7,9 @@
 <body>
 <div layout:fragment="conteudo">
     <h1 class="fs-1 my-3">Insira os dados da loja</h1>
+    <div class="alert alert-danger" th:if="${error} != null">
+        <p th:text="${error}"></p>
+    </div>
     <form th:action="@{/pedidos/dados-loja}"  method="post" class="mt-3">
         <div class="row row-cols-2">
             <div class="col col-sm-6">
