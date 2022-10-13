@@ -7,6 +7,9 @@
 <body>
 <div layout:fragment="conteudo">
     <h1 class="fs-1">Clientes PF</h1>
+    <div class="alert alert-success" th:if="${msg} != null">
+        <p th:text="${msg}"></p>
+    </div>
     <table class="table table-hover table-stripped">
         <thead>
             <tr>

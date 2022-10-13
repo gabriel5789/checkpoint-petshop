@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
 <head>
-  <meta charset="UTF-8">
-  <title>Home</title>
+    <meta charset="UTF-8">
+    <title>Home</title>
 </head>
 <body>
 <div layout:fragment="conteudo">
-  <h1 class="fs-1">Pedidos</h1>
-  <table class="table table-hover table-stripped">
-    <thead>
-    <tr>
-      <th>Código</th>
-      <th>Cliente</th>
-      <th>Vendedor</th>
-      <th>Data</th>
-      <th>Loja</th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="pedido:${pedidos}">
-      <td th:text="${pedido.id}"></td>
-      <td th:text="${pedido.cliente.nome}"></td>
-      <td th:text="${pedido.vendedor.nome}"></td>
-      <td th:text="${pedido.dataPedido}"></td>
-      <td th:text="${pedido.loja.id} + ' - ' + ${pedido.loja.endereco.nomeRua}"></td>
-      <td>
-        <a class="btn btn-primary" th:href="@{/pedidos/editar/} + ${pedido.id}">Editar</a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+    <h1 class="fs-1">Pedidos</h1>
+    <table class="table table-hover table-stripped">
+        <thead>
+        <tr>
+            <th>Código</th>
+            <th>Cliente</th>
+            <th>Vendedor</th>
+            <th>Data</th>
+            <th>Loja</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pedido:${pedidos}">
+            <td th:text="${pedido.id}"></td>
+            <td th:text="${pedido.cliente.nome}"></td>
+            <td th:text="${pedido.vendedor.nome}"></td>
+            <td th:text="${pedido.dataPedido}"></td>
+            <td th:text="${pedido.loja.id} + ' - ' + ${pedido.loja.endereco.nomeRua}"></td>
+            <td>
+                <a class="btn btn-primary" th:href="@{/pedidos/editar/} + ${pedido.id}">Editar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

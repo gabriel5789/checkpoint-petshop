@@ -8,6 +8,9 @@
 <div layout:fragment="conteudo">
     <h1 class="fs-1">Novo Pedido - Insira os dados do cliente</h1>
     <form th:action="@{/pedidos/pesquisar}" method="get">
+        <div class="alert alert-danger" th:if="${error} != null">
+            <p th:text="${error}"></p>
+        </div>
         <div class="input-group">
             <select name="tipoCliente" id="tipoCliente" class="btn btn-outline-success dropdown-toggle input-group-prepend">
                 <option class="dropdown-item" value="PF">CPF</option>
@@ -18,6 +21,9 @@
         </div>
     </form>
     <form th:object="${cliente}" th:action="@{/pedidos/criar}" method="post">
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+        </div>
         <div class="row row-cols-2 my-2">
             <div class="col col-sm-6">
                 <input type="text" class="form-control" placeholder="Nome Completo" th:field="*{nome}" id="nome" readonly>

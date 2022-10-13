@@ -26,9 +26,10 @@ public class ProdutoController {
     }
 
     @PostMapping("cadastro")
-    public String cadastroPost(@Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes) {
+    public String cadastroPost(@Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
         System.out.println(produto);
         if(result.hasErrors()) {
+            model.addAttribute("unidadesDeMedida", new ProdutoDAO().getUnidadesDeMedida());
             return "produto/cadastro";
         }
         try {
@@ -87,7 +88,7 @@ public class ProdutoController {
             dao.deletar(id);
         } catch (SQLException e) {
             if(e.getMessage().startsWith("ORA-02292"))
-                redirectAttributes.addFlashAttribute("erro", "Erro ao excluir produto." +
+                redirectAttributes.addFlashAttribute("error", "Erro ao excluir produto." +
                         "\nExistem pedidos no sistema com este produto, exclua esses pedidos para remover o produto");
             e.printStackTrace();
         }

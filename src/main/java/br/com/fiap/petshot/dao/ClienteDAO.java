@@ -23,10 +23,10 @@ public class ClienteDAO {
         conn = Conexao.conectar();
     }
 
-    public ClientePF getClienteByCpf(Long cpf) throws SQLException {
+    public ClientePF getClienteByCpf(String cpf) throws SQLException {
         sql = "SELECT id_cliente FROM tb_cliente_pf WHERE nr_cpf = ?";
         ps = conn.prepareStatement(sql);
-        ps.setLong(1, cpf);
+        ps.setString(1, cpf);
         rs = ps.executeQuery();
 
         if (!rs.next()) return null;
@@ -45,10 +45,10 @@ public class ClienteDAO {
         );
     }
 
-    public ClientePJ getClienteByCnpj(Long cnpj) throws SQLException {
+    public ClientePJ getClienteByCnpj(String cnpj) throws SQLException {
         sql = "SELECT id_cliente FROM tb_cliente_pj WHERE nr_cnpj = ?";
         ps = conn.prepareStatement(sql);
-        ps.setLong(1, cnpj);
+        ps.setString(1, cnpj);
         rs = ps.executeQuery();
 
         if (!rs.next()) return null;
@@ -84,7 +84,7 @@ public class ClienteDAO {
             ps.setInt(1, cli.getId());
             rs = ps.executeQuery();
             rs.next();
-            cli.setCpf(rs.getLong("nr_cpf"));
+            cli.setCpf(rs.getString("nr_cpf"));
         }
         return clientes;
     }
@@ -106,7 +106,7 @@ public class ClienteDAO {
             ps.setInt(1, cli.getId());
             rs = ps.executeQuery();
             rs.next();
-            cli.setCnpj(rs.getLong("nr_cnpj"));
+            cli.setCnpj(rs.getString("nr_cnpj"));
         }
         return clientes;
     }
@@ -138,13 +138,13 @@ public class ClienteDAO {
         if(cliente.getTipoCliente().equals("PF")) {
             sql = "INSERT INTO tb_cliente_pf(nr_cpf, id_cliente) VALUES (?, ?)";
             ps = conn.prepareStatement(sql);
-            ps.setLong(1, ((ClientePF) cliente).getCpf());
+            ps.setString(1, ((ClientePF) cliente).getCpf());
             ps.setInt(2, cliente.getId());
             ps.execute();
         } else if (cliente.getTipoCliente().equals("PJ")) {
             sql = "INSERT INTO tb_cliente_pj(nr_cnpj, id_cliente) VALUES (?, ?)";
             ps = conn.prepareStatement(sql);
-            ps.setLong(1, ((ClientePJ) cliente).getCnpj());
+            ps.setString(1, ((ClientePJ) cliente).getCnpj());
             ps.setInt(2, cliente.getId());
             ps.execute();
         }
@@ -183,12 +183,12 @@ public class ClienteDAO {
         if(cliente.getTipoCliente().equals("PF")) {
             sql = "UPDATE tb_cliente_pf SET nr_cpf = ? WHERE id_cliente = ?";
             ps = conn.prepareStatement(sql);
-            ps.setLong(1, ((ClientePF) cliente).getCpf());
+            ps.setString(1, ((ClientePF) cliente).getCpf());
             ps.setInt(2, cliente.getId());
         } else {
             sql = "UPDATE tb_cliente_pj SET nr_cnpj = ? WHERE id_cliente = ?";
             ps = conn.prepareStatement(sql);
-            ps.setLong(1, ((ClientePJ) cliente).getCnpj());
+            ps.setString(1, ((ClientePJ) cliente).getCnpj());
             ps.setInt(2, cliente.getId());
         }
         ps.execute();
@@ -224,7 +224,7 @@ public class ClienteDAO {
         return new ClientePF(
                 rs.getInt("id_cliente"), rs.getString("nm_cliente"),
                 new EnderecoDAO().getEndereco(rs.getInt("id_endereco")),
-                rs.getString("ds_email"), rs.getLong("nr_cpf")
+                rs.getString("ds_email"), rs.getString("nr_cpf")
         );
     }
     public ClientePJ getClientePJ(Integer id) throws SQLException {
@@ -241,7 +241,7 @@ public class ClienteDAO {
         return new ClientePJ(
                 rs.getInt("id_cliente"), rs.getString("nm_cliente"),
                 new EnderecoDAO().getEndereco(rs.getInt("id_endereco")),
-                rs.getString("ds_email"), rs.getLong("nr_cnpj")
+                rs.getString("ds_email"), rs.getString("nr_cnpj")
         );
     }
 

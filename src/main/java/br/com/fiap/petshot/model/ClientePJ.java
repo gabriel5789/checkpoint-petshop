@@ -1,9 +1,9 @@
 package br.com.fiap.petshot.model;
 
 public class ClientePJ extends Cliente {
-    private Long cnpj;
+    private String cnpj;
 
-    public ClientePJ(Integer id, String name, Endereco endereco, String email, Long cnpj) {
+    public ClientePJ(Integer id, String name, Endereco endereco, String email, String cnpj) {
         super(id, name, endereco, email, "PJ");
         this.cnpj = cnpj;
     }
@@ -12,11 +12,11 @@ public class ClientePJ extends Cliente {
         super(null, null, null, null, "PJ");
     }
 
-    public Long getCnpj() {
+    public String getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(Long cnpj) {
+    public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
 

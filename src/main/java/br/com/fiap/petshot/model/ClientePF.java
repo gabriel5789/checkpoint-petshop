@@ -1,9 +1,12 @@
 package br.com.fiap.petshot.model;
 
-public class ClientePF extends Cliente {
-    private Long cpf;
+import org.hibernate.validator.constraints.br.CPF;
 
-    public ClientePF(Integer id, String name, Endereco endereco, String email, Long cpf) {
+public class ClientePF extends Cliente {
+    @CPF
+    private String cpf;
+
+    public ClientePF(Integer id, String name, Endereco endereco, String email, String cpf) {
         super(id, name, endereco, email, "PF");
         this.cpf = cpf;
     }
@@ -12,11 +15,11 @@ public class ClientePF extends Cliente {
         super(null, null, null, null, "PF");
     }
 
-    public Long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 

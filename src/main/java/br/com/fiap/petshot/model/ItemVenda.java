@@ -1,7 +1,15 @@
 package br.com.fiap.petshot.model;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 public class ItemVenda {
+    @Valid
+    @NotNull(message = "Produto não encontrado")
     private Produto produto;
+    @NotNull(message = "Quantidade é obrigatória")
+    @Min(value = 1, message = "Quantidade deve ser maior que 0")
     private Integer quantidade;
     private Double preco;
     private Vendedor vendedorAprovador;

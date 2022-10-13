@@ -20,7 +20,7 @@ public class DAOTests {
         PedidoDAO dao = new PedidoDAO();
 
         try {
-            List<Pedido> pedidos = dao.pesquisarPedidosPorCpf(51476896801L);
+            List<Pedido> pedidos = dao.pesquisarPedidosPorCpf("51476896801");
             for (Pedido p :
                     pedidos) {
                 System.out.println(p);
@@ -40,7 +40,7 @@ public class DAOTests {
         PedidoDAO dao = new PedidoDAO();
 
         try {
-            ClientePF cl = clienteDAO.getClienteByCpf(51476896801L);
+            ClientePF cl = clienteDAO.getClienteByCpf("51476896801");
             Vendedor v1 = vendedorDAO.pesquisar(1);
             Produto p1 = produtoDAO.pesquisar(1);
             Produto p2 = produtoDAO.pesquisar(6);
@@ -85,8 +85,8 @@ public class DAOTests {
         endereco.setComplemento("Casa 1");
         endereco.setEstado("SP");
         endereco.setCidade("São Paulo");
-        ClientePF clientePF = new ClientePF(null, "Pietro", endereco, "pietro@gmail.com", 4524868951L);
-        ClientePJ clientePJ = new ClientePJ(null, "Gabriel LTDA", endereco, "gdg@gabltda.com", 93778130000148L);
+        ClientePF clientePF = new ClientePF(null, "Pietro", endereco, "pietro@gmail.com", "4524868951");
+        ClientePJ clientePJ = new ClientePJ(null, "Gabriel LTDA", endereco, "gdg@gabltda.com", "93778130000148");
 
         System.out.println("\nClientes PF");
         try {
@@ -107,7 +107,7 @@ public class DAOTests {
 
         System.out.println("\nAtualizar");
         try {
-            clientePF.setCpf(51476896801L);
+            clientePF.setCpf("51476896801");
             clienteDAO.atualizar(clientePF);
         } catch (java.sql.SQLIntegrityConstraintViolationException e) {
             if(e.getMessage().substring(0, 9).equals("ORA-00001"))

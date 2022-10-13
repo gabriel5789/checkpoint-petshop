@@ -49,13 +49,25 @@ public class ClienteController {
     }
 
     @PostMapping("cadastro-pf")
-    public String cadastroPF(@Valid ClientePF cliente, BindingResult result, RedirectAttributes redirectAttributes) {
+    public String cadastroPF(@Valid ClientePF cliente, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
         ClienteDAO dao = new ClienteDAO();
-        if(result.hasErrors())
+        if(result.hasErrors()) {
+            try {
+                model.addAttribute("estados", new EnderecoDAO().getEstados());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             return "cliente/cadastro-pf";
+        }
         try {
             dao.cadastrarCliente(cliente);
         } catch(SQLException e) {
+            try {
+                model.addAttribute("estados", new EnderecoDAO().getEstados());
+            } catch (SQLException ex) {
+                e.printStackTrace();
+            }
+            e.printStackTrace();
             if(e.getMessage().substring(0, 9).equals("ORA-00001")) {
                 try {
                     if(dao.getClienteByCnpj(cliente.getCpf()) != null)
@@ -163,7 +175,7 @@ public class ClienteController {
             e.printStackTrace();
         }
 
-        redirectAttributes.addFlashAttribute("msg", "Cliente inserido com sucesso!");
+        redirectAttributes.addFlashAttribute("msg", "Cliente atualizado com sucesso!");
         return "redirect:listar-pf";
     }
 
@@ -175,7 +187,7 @@ public class ClienteController {
             e.printStackTrace();
         }
 
-        redirectAttributes.addFlashAttribute("msg", "Cliente inserido com sucesso!");
+        redirectAttributes.addFlashAttribute("msg", "Cliente atualizado com sucesso!");
         return "redirect:listar-pj";
     }
 
@@ -184,13 +196,13 @@ public class ClienteController {
         ClienteDAO dao = new ClienteDAO();
         try {
             dao.remover(id);
+            redirectAttributes.addFlashAttribute("msg", "Cliente removido com sucesso");
         } catch (SQLException e) {
             e.printStackTrace();
             if(e.getMessage().startsWith("ORA-02292")) {
-                redirectAttributes.addFlashAttribute("erro", "Erro ao excluir! Existem animais no sistema associados ao cliente!");
+                redirectAttributes.addFlashAttribute("error", "Erro ao excluir. Existem registros no sistema associados ao cliente.");
             }
         }
-        redirectAttributes.addFlashAttribute("msg", "Cliente removido com sucesso");
         return "redirect:/cliente/cadastro";
     }
 }

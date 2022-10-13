@@ -1,7 +1,10 @@
 package br.com.fiap.petshot.model;
 
+import javax.validation.constraints.NotBlank;
+
 public class Vendedor {
     private Integer id;
+    @NotBlank
     private String nome;
 
     public Vendedor(Integer id, String nome) {
