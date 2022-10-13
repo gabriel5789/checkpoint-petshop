@@ -1,80 +1,85 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{base}">
 <head>
-    <meta charset="UTF-8">
-    <title>Cadastro</title>
+	<meta charset="UTF-8">
+	<title>Cadastro</title>
 </head>
 <body>
 <div layout:fragment="conteudo">
-    <h1 class="fs-1 my-3">Sistema de cadastro de clientes</h1>
-    <div class="border border-2 rounded-3">
-        <ul class="nav nav-tabs bg-light ps-3 pt-3">
-            <li class="nav-item">
-                <a class="nav-link bg-primary text-white" th:href="@{/cliente/cadastro-pf}">Cadastro pessoa física</a>
-            </li>
-            <li class="nav-item mx-2">
-                <a class="nav-link bg-dark text-white" th:href="@{/cliente/cadastro-pj}">Cadastro pessoa jurídica</a>
-            </li>
-        </ul>
-        <div class="tab-content p-4 bg-light">
-            <form th:action="@{/cliente/cadastro-pf}" th:object="${clientePF}" method="post">
-                <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-                    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
-                </div>
-                <h3 class="fs-3 mt-3 mb-2">Cliente</h3>
-                <div class="row row-cols-2 my-2">
-                    <div class="col col-sm-6">
-                        <input type="text" class="form-control" placeholder="Nome Completo" th:field="*{nome}" id="nome">
-                    </div>
-                    <div class="col col-sm-6">
-                        <input type="number" class="form-control" placeholder="CPF" th:field="*{cpf}" id="cpf">
-                    </div>
-                </div>
-                <div class="row my-2">
-                    <div class="col">
-                        <input type="email" class="form-control" placeholder="E-mail" th:field="*{email}" id="email">
-                    </div>
-                </div>
-                <h3 class="fs-3 mt-4 mb-2">Endereço</h3>
-                <div class="row row-cols-2 my-2">
-                    <div class="col col-sm-9">
-                        <input type="text" class="form-control" placeholder="Logradouro" th:field="*{endereco.nomeRua}" id="nomeRua">
-                    </div>
-                    <div class="col col-sm-3">
-                        <input type="number" class="form-control" placeholder="Número" th:field="*{endereco.nrRua}" id="nrRua">
-                    </div>
-                </div>
-                <div class="row row-cols-3 my-2">
-                    <div class="col col-sm-4">
-                        <input type="number" class="form-control" placeholder="CEP" th:field="*{endereco.cep}" id="cep">
-                    </div>
-                    <div class="col col-sm-4">
-                        <input type="text" class="form-control" placeholder="Complemento (opcional)"
-                               th:field="*{endereco.complemento}" id="complemento">
-                    </div>
-                    <div class="col col-sm-4">
-                        <input type="text" class="form-control" placeholder="Bairro" th:field="*{endereco.bairro}" id="bairro">
-                    </div>
-                </div>
-                <div class="row row-cols-2 my-2">
-                    <div class="col col-sm-6">
-                        <label for="cidade"></label>
-                        <select th:field="*{endereco.cidade}" id="cidade" class="form-select">
-                            <option value="">Selecione</option>
-                        </select>
-                    </div>
-                    <div class="col col-sm-3">
-                        <label for="estado"></label>
-                        <select th:field="*{endereco.estado}" id="estado" class="form-select">
-                            <option value = "">Selecione</option>
-                            <option th:each="estado:${estados}" th:value="${estado}" th:text="${estado}"></option>
-                        </select>
-                    </div>
-                </div>
-                <input type="submit" value="Cadastrar" class="btn btn-primary my-2">
-            </form>
-        </div>
-        <script>
+	<h1 class="fs-1 my-3">Sistema de cadastro de clientes</h1>
+	<div class="border border-2 rounded-3">
+		<ul class="nav nav-tabs bg-light ps-3 pt-3">
+			<li class="nav-item">
+				<a class="nav-link bg-primary text-white" th:href="@{/cliente/cadastro-pf}">Cadastro pessoa física</a>
+			</li>
+			<li class="nav-item mx-2">
+				<a class="nav-link bg-dark text-white" th:href="@{/cliente/cadastro-pj}">Cadastro pessoa jurídica</a>
+			</li>
+		</ul>
+		<div class="tab-content p-4 bg-light">
+			<form th:action="@{/cliente/cadastro-pf}" th:object="${clientePF}" method="post">
+				<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+					<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+				</div>
+				<h3 class="fs-3 mt-3 mb-2">Cliente</h3>
+				<div class="row row-cols-2 my-2">
+					<div class="col col-sm-6">
+						<input type="text" class="form-control" placeholder="Nome Completo" th:field="*{nome}"
+							   id="nome">
+					</div>
+					<div class="col col-sm-6">
+						<input type="number" class="form-control" placeholder="CPF" th:field="*{cpf}" id="cpf">
+					</div>
+				</div>
+				<div class="row my-2">
+					<div class="col">
+						<input type="email" class="form-control" placeholder="E-mail" th:field="*{email}" id="email">
+					</div>
+				</div>
+				<h3 class="fs-3 mt-4 mb-2">Endereço</h3>
+				<div class="row row-cols-2 my-2">
+					<div class="col col-sm-9">
+						<input type="text" class="form-control" placeholder="Logradouro" th:field="*{endereco.nomeRua}"
+							   id="nomeRua">
+					</div>
+					<div class="col col-sm-3">
+						<input type="number" class="form-control" placeholder="Número" th:field="*{endereco.nrRua}"
+							   id="nrRua">
+					</div>
+				</div>
+				<div class="row row-cols-3 my-2">
+					<div class="col col-sm-4">
+						<input type="number" class="form-control" placeholder="CEP" th:field="*{endereco.cep}" id="cep">
+					</div>
+					<div class="col col-sm-4">
+						<input type="text" class="form-control" placeholder="Complemento (opcional)"
+							   th:field="*{endereco.complemento}" id="complemento">
+					</div>
+					<div class="col col-sm-4">
+						<input type="text" class="form-control" placeholder="Bairro" th:field="*{endereco.bairro}"
+							   id="bairro">
+					</div>
+				</div>
+				<div class="row row-cols-2 my-2">
+					<div class="col col-sm-6">
+						<label for="cidade"></label>
+						<select th:field="*{endereco.cidade}" id="cidade" class="form-select">
+							<option value="">Selecione</option>
+						</select>
+					</div>
+					<div class="col col-sm-3">
+						<label for="estado"></label>
+						<select th:field="*{endereco.estado}" id="estado" class="form-select" required>
+							<option value="" disabled selected>Selecione</option>
+							<option th:each="estado:${estados}" th:value="${estado}" th:text="${estado}"></option>
+						</select>
+					</div>
+				</div>
+				<input type="submit" value="Cadastrar" class="btn btn-primary my-2">
+			</form>
+		</div>
+		<script>
             document.getElementById("estado").addEventListener("change", (event) => {
                 var options;                
 
@@ -100,10 +105,13 @@
                 
                 document.getElementById("cidade").appendChild(document.createElement("option",))
             })
-        </script>
-    </div>
-    <script>
-    </script>
+
+
+
+		</script>
+	</div>
+	<script>
+	</script>
 </div>
 </body>
 </html>

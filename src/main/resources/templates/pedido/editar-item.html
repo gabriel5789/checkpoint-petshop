@@ -1,47 +1,76 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{base}">
 <head>
-    <meta charset="UTF-8">
-    <title>Home</title>
+	<meta charset="UTF-8">
+	<title>Home</title>
 </head>
 <body>
 <div layout:fragment="conteudo">
-    <h1 class="fs-1">Editar item</h1>
-    <form th:object="${itemVenda}" th:action="@{/pedidos/itens/editar}" method="post">
-        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
-        </div>
-        <div class="row">
-            <div class="col-4">
-                <label class="form-label">Código do produto</label>
-                <div class="input-group">
-                    <input class="form-control" type="text" th:field="*{produto.id}" id="cod-produto" readonly>
-                    <button id="pesquisar-produto-submit" class="input-group-append btn btn-success">Pesquisar</button>
-                </div>
-            </div>
-            <div class="col-8">
-                <label class="form-label">Descrição</label>
-                <input th:field="*{produto.nome}" type="text" class="form-control" id="desc-produto" readonly/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col col-sm-6">
-                <label class="form-label">Quantidade</label>
-                <input type="number" class="form-control" th:field="*{quantidade}" id="qtde-produto"/>
-            </div>
-            <div class="col col-sm-6">
-                <label class="form-label">Preço</label>
-                <div class="input-group">
-                    <span class="input-group-text">R$</span>
-                    <input type="number" th:field="*{preco}" class="form-control" id="preco-produto" placeholder="Deixe vazio para usar o preço padrão">
-                </div>
-            </div>
-        </div>
-        <input type="submit" class="btn btn-primary my-3" value="Salvar"/>
-    </form>
-    <form th:action="@{/pedidos/itens/deletar/} + ${itemVenda.produto.id}" method="post">
-        <input type="submit" value="Deletar" class="btn btn-danger my-2">
-    </form>
+	<h1 class="fs-1">Editar item</h1>
+	<form th:object="${itemVenda}" th:action="@{/pedidos/itens/editar}" method="post">
+		<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+			<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+		</div>
+		<div class="row">
+			<div class="col-4">
+				<label class="form-label">Código do produto</label>
+				<div class="input-group">
+					<input class="form-control" type="text" th:field="*{produto.id}" id="cod-produto" readonly>
+					<button id="pesquisar-produto-submit" class="input-group-append btn btn-success" disabled>Pesquisar</button>
+				</div>
+			</div>
+			<div class="col-8">
+				<label class="form-label">Descrição</label>
+				<input th:field="*{produto.nome}" type="text" class="form-control" id="desc-produto" readonly/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col col-sm-6">
+				<label class="form-label">Quantidade</label>
+				<input type="number" class="form-control" th:field="*{quantidade}" id="qtde-produto"/>
+			</div>
+			<div class="col col-sm-6">
+				<label class="form-label">Preço</label>
+				<div class="input-group">
+					<span class="input-group-text">R$</span>
+					<input type="number" th:field="*{preco}" class="form-control" id="preco-produto"
+						   placeholder="Deixe vazio para usar o preço padrão">
+				</div>
+			</div>
+		</div>
+		<input type="submit" value="Atualizar" class="btn btn-primary my-4 me-2">
+		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+			Deletar
+		</button>
+	</form>
+
+	<!-- Modal -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="deleteModalLabel">Excluir</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>Tem certeza que deseja excluir?</p>
+				</div>
+				<div class="modal-footer">
+					<form th:action="@{/pedidos/itens/deletar/} + ${itemVenda.produto.id}" method="post">
+						<div class="row">
+							<div class="col">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							</div>
+							<div class="col">
+								<input type="submit" value="Deletar" class="btn btn-danger">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 </body>
 </html>

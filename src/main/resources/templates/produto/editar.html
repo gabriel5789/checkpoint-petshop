@@ -1,46 +1,74 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{base}">
 <head>
-    <meta charset="UTF-8">
-    <title>Atualizar Produto</title>
+	<meta charset="UTF-8">
+	<title>Atualizar Produto</title>
 </head>
 <body>
 <div layout:fragment="conteudo">
-    <h1 class="fs-1 my-3">Sistema de cadastro de produtos</h1>
-    <form th:action="@{/produto/editar}" th:object="${produto}" method="post">
-        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
-        </div>
-        <input type="hidden" th:field="*{id}" th:value="${id}">
-        <div class="row my-2">
-            <div class="col">
-                <label for="nome">Descrição do produto</label>
-                <input type="text" class="form-control" placeholder="Nome" th:field="*{nome}" id="nome">
-            </div>
-        </div>
-        <div class="row my-2">
-            <div class="col col-sm-3">
-                <label for="valor">Valor</label>
-                <div class="input-group">
-                    <span class="input-group-text">R$</span>
-                    <input type="number" th:field="*{valor}" class="form-control" id="valor">
-                </div>
-            </div>
-            <div class="col col-sm-3">
-                <label for="um">Unidade de medida</label>
-                <select th:field="*{unidadeMedida.desc}" id="um" class="form-select">
-                    <option value="">Selecione</option>
-                    <option th:each="uni:${unidadesDeMedida}" th:value="${uni.desc}" th:text="${uni.desc}"></option>
-                </select>
-            </div>
-        </div>
-        <input type="submit" value="Atualizar" class="btn btn-primary my-2">
-    </form>
-    <form th:action="@{/produto/deletar/} + ${produto.id}" method="post">
-        <input type="submit" value="Deletar" class="btn btn-danger my-2">
-    </form>
-    <script>
-    </script>
+	<h1 class="fs-1 my-3">Sistema de cadastro de produtos</h1>
+	<form th:action="@{/produto/editar}" th:object="${produto}" method="post">
+		<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+			<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+		</div>
+		<input type="hidden" th:field="*{id}" th:value="${id}">
+		<div class="row my-2">
+			<div class="col">
+				<label for="nome">Descrição do produto</label>
+				<input type="text" class="form-control" placeholder="Nome" th:field="*{nome}" id="nome">
+			</div>
+		</div>
+		<div class="row my-2">
+			<div class="col col-sm-3">
+				<label for="valor">Valor</label>
+				<div class="input-group">
+					<span class="input-group-text">R$</span>
+					<input type="number" th:field="*{valor}" class="form-control" id="valor">
+				</div>
+			</div>
+			<div class="col col-sm-3">
+				<label for="um">Unidade de medida</label>
+				<select th:field="*{unidadeMedida.desc}" id="um" class="form-select" required>
+					<option value="" disabled>Selecione</option>
+					<option th:each="uni:${unidadesDeMedida}" th:value="${uni.desc}" th:text="${uni.desc}"></option>
+				</select>
+			</div>
+		</div>
+		<input type="submit" value="Atualizar" class="btn btn-primary my-3 me-2">
+		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+			Deletar
+		</button>
+	</form>
+
+	<!-- Modal -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="deleteModalLabel">Excluir</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>Tem certeza que deseja excluir?</p>
+				</div>
+				<div class="modal-footer">
+					<form th:action="@{/produto/deletar/} + ${produto.id}" method="post">
+						<div class="row">
+							<div class="col">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							</div>
+							<div class="col">
+								<input type="submit" value="Deletar" class="btn btn-danger">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+	</script>
 </div>
 </body>
 </html>
