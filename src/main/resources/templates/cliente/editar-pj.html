@@ -1,77 +1,112 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{base}">
 <head>
-    <meta charset="UTF-8">
-    <title>Atualização</title>
+	<meta charset="UTF-8">
+	<title>Atualização</title>
 </head>
 <body>
 <div layout:fragment="conteudo">
-    <h1 class="fs-1 my-3">Sistema de atualização cadastral</h1>
-    <div class="border border-2 rounded-3">
-        <div class="tab-content p-4 bg-light">
-            <form th:action="@{/cliente/editar-pj}" th:object="${clientePJ}" method="post">
-                <input type="hidden" th:field="*{endereco.id}" id="id_endereco">
-                <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-                    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
-                </div>
-                <h3 class="fs-3 mt-3 mb-2">Cliente</h3>
-                <div class="row row-cols-2 my-2">
-                    <div class="col col-sm-6">
-                        <input type="text" class="form-control" placeholder="Nome Completo" th:field="*{nome}" id="nome">
-                    </div>
-                    <div class="col col-sm-6">
-                        <input type="number" class="form-control" placeholder="CNPJ" th:field="*{cnpj}" id="cnpj">
-                    </div>
-                </div>
-                <div class="row my-2">
-                    <div class="col">
-                        <input type="email" class="form-control" placeholder="E-mail" th:field="*{email}" id="email">
-                    </div>
-                </div>
-                <h3 class="fs-3 mt-4 mb-2">Endereço</h3>
-                <div class="row row-cols-2 my-2">
-                    <div class="col col-sm-9">
-                        <input type="text" class="form-control" placeholder="Logradouro" th:field="*{endereco.nomeRua}" id="nomeRua">
-                    </div>
-                    <div class="col col-sm-3">
-                        <input type="number" class="form-control" placeholder="Número" th:field="*{endereco.nrRua}" id="nrRua">
-                    </div>
-                </div>
-                <div class="row row-cols-3 my-2">
-                    <div class="col col-sm-4">
-                        <input type="number" class="form-control" placeholder="CEP" th:field="*{endereco.cep}" id="cep">
-                    </div>
-                    <div class="col col-sm-4">
-                        <input type="text" class="form-control" placeholder="Complemento (opcional)"
-                               th:field="*{endereco.complemento}" id="complemento">
-                    </div>
-                    <div class="col col-sm-4">
-                        <input type="text" class="form-control" placeholder="Bairro" th:field="*{endereco.bairro}" id="bairro">
-                    </div>
-                </div>
-                <div class="row row-cols-2 my-2">
-                    <div class="col col-sm-6">
-                        <label for="cidade"></label>
-                        <select th:field="*{endereco.cidade}" id="cidade" class="form-select">
-                            <option th:value="*{endereco.cidade}" th:text="*{endereco.cidade}">Selecione</option>
-                            <option th:each="cidade:${cidades}" th:if="*{endereco.cidade} != ${cidade}" th:value="${cidade}" th:text="${cidade}"></option>
-                        </select>
-                    </div>
-                    <div class="col col-sm-3">
-                        <label for="estado"></label>
-                        <select th:field="*{endereco.estado}" id="estado" class="form-select">
-                            <option th:value="*{endereco.estado}" th:text="*{endereco.estado}"></option>
-                            <option th:each="estado:${estados}" th:if="*{endereco.estado} != ${estado}" th:value="${estado}" th:text="${estado}"></option>
-                        </select>
-                    </div>
-                </div>
-                <input type="submit" value="Atualizar" class="btn btn-primary my-2">
-            </form>
-            <form th:action="@{/cliente/deletar/} + ${clientePJ.id}" method="post">
-                <input type="submit" value="Deletar" class="btn btn-danger my-2">
-            </form>
-        </div>
-        <script>
+	<h1 class="fs-1 my-3">Sistema de atualização cadastral</h1>
+	<div class="border border-2 rounded-3">
+		<div class="tab-content p-4 bg-light">
+			<form th:action="@{/cliente/editar-pj}" th:object="${clientePJ}" method="post">
+				<input type="hidden" th:field="*{endereco.id}" id="id_endereco">
+				<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+					<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+				</div>
+				<h3 class="fs-3 mt-3 mb-2">Cliente</h3>
+				<div class="row row-cols-2 my-2">
+					<div class="col col-sm-6">
+						<input type="text" class="form-control" placeholder="Nome Completo" th:field="*{nome}"
+							   id="nome">
+					</div>
+					<div class="col col-sm-6">
+						<input type="number" class="form-control" placeholder="CNPJ" th:field="*{cnpj}" id="cnpj">
+					</div>
+				</div>
+				<div class="row my-2">
+					<div class="col">
+						<input type="email" class="form-control" placeholder="E-mail" th:field="*{email}" id="email">
+					</div>
+				</div>
+				<h3 class="fs-3 mt-4 mb-2">Endereço</h3>
+				<div class="row row-cols-2 my-2">
+					<div class="col col-sm-9">
+						<input type="text" class="form-control" placeholder="Logradouro" th:field="*{endereco.nomeRua}"
+							   id="nomeRua">
+					</div>
+					<div class="col col-sm-3">
+						<input type="number" class="form-control" placeholder="Número" th:field="*{endereco.nrRua}"
+							   id="nrRua">
+					</div>
+				</div>
+				<div class="row row-cols-3 my-2">
+					<div class="col col-sm-4">
+						<input type="number" class="form-control" placeholder="CEP" th:field="*{endereco.cep}" id="cep">
+					</div>
+					<div class="col col-sm-4">
+						<input type="text" class="form-control" placeholder="Complemento (opcional)"
+							   th:field="*{endereco.complemento}" id="complemento">
+					</div>
+					<div class="col col-sm-4">
+						<input type="text" class="form-control" placeholder="Bairro" th:field="*{endereco.bairro}"
+							   id="bairro">
+					</div>
+				</div>
+				<div class="row row-cols-2 my-2">
+					<div class="col col-sm-6">
+						<label for="cidade"></label>
+						<select th:field="*{endereco.cidade}" id="cidade" class="form-select">
+							<option th:value="*{endereco.cidade}" th:text="*{endereco.cidade}">Selecione</option>
+							<option th:each="cidade:${cidades}" th:if="*{endereco.cidade} != ${cidade}"
+									th:value="${cidade}" th:text="${cidade}"></option>
+						</select>
+					</div>
+					<div class="col col-sm-3">
+						<label for="estado"></label>
+						<select th:field="*{endereco.estado}" id="estado" class="form-select">
+							<option th:value="*{endereco.estado}" th:text="*{endereco.estado}"></option>
+							<option th:each="estado:${estados}" th:if="*{endereco.estado} != ${estado}"
+									th:value="${estado}" th:text="${estado}"></option>
+						</select>
+					</div>
+				</div>
+				<input type="submit" value="Atualizar" class="btn btn-primary my-2 me-2">
+				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+					Deletar
+				</button>
+			</form>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="deleteModalLabel">Excluir</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<p>Tem certeza que deseja excluir?</p>
+					</div>
+					<div class="modal-footer">
+						<form th:action="@{/cliente/deletar/} + ${clientePJ.id}" method="post">
+							<div class="row">
+								<div class="col">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								</div>
+								<div class="col">
+									<input type="submit" value="Deletar" class="btn btn-danger">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
               document.getElementById("estado").addEventListener("change", (event) => {
                   var options;
 
@@ -97,10 +132,13 @@
 
                   document.getElementById("cidade").appendChild(document.createElement("option",))
               })
-      </script>
-    </div>
-    <script>
-    </script>
+
+
+
+		</script>
+	</div>
+	<script>
+	</script>
 </div>
 </body>
 </html>

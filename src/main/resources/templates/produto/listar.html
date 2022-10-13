@@ -1,34 +1,41 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{base}">
 <head>
-  <meta charset="UTF-8">
-  <title>Home</title>
+	<meta charset="UTF-8">
+	<title>Home</title>
 </head>
 <body>
 <div layout:fragment="conteudo">
-  <h1 class="fs-1">Produtos</h1>
-  <table class="table table-hover table-stripped">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Descrição</th>
-      <th>Valor</th>
-      <th>Unidade de medida</th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="produto:${produtos}">
-      <td th:text="${produto.id}"></td>
-      <td th:text="${produto.nome}"></td>
-      <td th:text="${produto.valor}"></td>
-      <td th:text="${produto.unidadeMedida.desc}"></td>
-      <td>
-        <a class="btn btn-primary" th:href="@{/produto/editar/} + ${produto.id}">Editar</a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+	<h1 class="fs-1">Produtos</h1>
+	<div class="alert alert-danger" th:if="${error} != null">
+		<p th:text="${error}"></p>
+	</div>
+	<div class="alert alert-success" th:if="${msg} != null">
+		<p th:text="${msg}"></p>
+	</div>
+	<table class="table table-hover table-stripped">
+		<thead>
+		<tr>
+			<th>ID</th>
+			<th>Descrição</th>
+			<th>Valor</th>
+			<th>Unidade de medida</th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr th:each="produto:${produtos}">
+			<td th:text="${produto.id}"></td>
+			<td th:text="${produto.nome}"></td>
+			<td th:text="${produto.valor}"></td>
+			<td th:text="${produto.unidadeMedida.desc}"></td>
+			<td>
+				<a class="btn btn-primary" th:href="@{/produto/editar/} + ${produto.id}">Editar</a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
 </div>
 </body>
 </html>

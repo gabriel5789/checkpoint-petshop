@@ -1,31 +1,37 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{base}">
 <head>
-    <meta charset="UTF-8">
-    <title>Home</title>
+	<meta charset="UTF-8">
+	<title>Home</title>
 </head>
 <body>
 <div layout:fragment="conteudo">
-    <h1 class="fs-1 my-3">Insira os dados da loja</h1>
-    <form th:action="@{/pedidos/dados-loja}"  method="post" class="mt-3">
-        <div class="row row-cols-2">
-            <div class="col col-sm-6">
-                <label for="loja" class="form-label">Loja</label>
-                <select name="idLoja" id="loja" class="form-select">
-                    <option value = "">Selecione</option>
-                    <option th:each="loja:${lojas}" th:value="${loja.id}" th:text="${loja.id} + ' - ' + ${loja.endereco.nomeRua}"></option>
-                </select>
-            </div>
-            <div class="col col-sm-6">
-                <label for="vendedor" class="form-label">Vendedor</label>
-                <select name="idVendedor" id="vendedor" class="form-select">
-                    <option value = "">Selecione</option>
-                    <option th:each="vendedor:${vendedores}" th:value="${vendedor.id}" th:text="${vendedor.nome}"></option>
-                </select>
-            </div>
-        </div>
-        <input type="submit" class="btn btn-primary mt-4" value="Prosseguir"/>
-    </form>
+	<h1 class="fs-1 my-3">Insira os dados da loja</h1>
+	<div class="alert alert-danger" th:if="${error} != null">
+		<p th:text="${error}"></p>
+	</div>
+	<form th:action="@{/pedidos/dados-loja}" method="post" class="mt-3">
+		<div class="row row-cols-2">
+			<div class="col col-sm-6">
+				<label for="loja" class="form-label">Loja</label>
+				<select name="idLoja" id="loja" class="form-select" required>
+					<option value="" disabled selected>Selecione</option>
+					<option th:each="loja:${lojas}" th:value="${loja.id}"
+							th:text="${loja.id} + ' - ' + ${loja.endereco.nomeRua}"></option>
+				</select>
+			</div>
+			<div class="col col-sm-6">
+				<label for="vendedor" class="form-label">Vendedor</label>
+				<select name="idVendedor" id="vendedor" class="form-select" required>
+					<option value="" disabled selected>Selecione</option>
+					<option th:each="vendedor:${vendedores}" th:value="${vendedor.id}"
+							th:text="${vendedor.nome}"></option>
+				</select>
+			</div>
+		</div>
+		<input type="submit" class="btn btn-primary mt-4" value="Prosseguir"/>
+	</form>
 </div>
 </body>
 </html>

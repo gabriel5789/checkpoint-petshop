@@ -1,62 +1,77 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{base}">
 <head>
-    <meta charset="UTF-8">
-    <title>Home</title>
+	<meta charset="UTF-8">
+	<title>Home</title>
 </head>
 <body>
 <div layout:fragment="conteudo">
-    <h1 class="fs-1">Novo Pedido - Insira os dados do cliente</h1>
-    <form th:action="@{/pedidos/pesquisar}" method="get">
-        <div class="input-group">
-            <select name="tipoCliente" id="tipoCliente" class="btn btn-outline-success dropdown-toggle input-group-prepend">
-                <option class="dropdown-item" value="PF">CPF</option>
-                <option class="dropdown-item" value="PJ">CNPJ</option>
-            </select>
-            <input type="number" class="form-control" placeholder="CNPJ/CPF" name="id" id="id">
-            <input type="submit" class="btn btn-success input-group-append" value="Pesquisar">
-        </div>
-    </form>
-    <form th:object="${cliente}" th:action="@{/pedidos/criar}" method="post">
-        <div class="row row-cols-2 my-2">
-            <div class="col col-sm-6">
-                <input type="text" class="form-control" placeholder="Nome Completo" th:field="*{nome}" id="nome" readonly>
-            </div>
-            <div class="col col-sm-6">
-                <input type="email" class="form-control" placeholder="E-mail" th:field="*{email}" id="email" readonly>
-            </div>
-        </div>
-        <h3 class="fs-3 mt-4 mb-2">Endereço</h3>
-        <div class="row row-cols-2 my-2">
-            <div class="col col-sm-9">
-                <input type="text" class="form-control" placeholder="Logradouro" th:field="*{endereco.nomeRua}" id="nomeRua" readonly>
-            </div>
-            <div class="col col-sm-3">
-                <input type="number" class="form-control" placeholder="Número" th:field="*{endereco.nrRua}" id="nrRua" readonly>
-            </div>
-        </div>
-        <div class="row row-cols-3 my-2">
-            <div class="col col-sm-4">
-                <input type="number" class="form-control" placeholder="CEP" th:field="*{endereco.cep}" id="cep" readonly>
-            </div>
-            <div class="col col-sm-4">
-                <input type="text" class="form-control" placeholder="Complemento (opcional)"
-                       th:field="*{endereco.complemento}" id="complemento" readonly>
-            </div>
-            <div class="col col-sm-4">
-                <input type="text" class="form-control" placeholder="Bairro" th:field="*{endereco.bairro}" id="bairro" readonly>
-            </div>
-        </div>
-        <div class="row row-cols-2 my-2">
-            <div class="col col-sm-6">
-                <input type="text" placeholder="cidade" th:field="*{endereco.cidade}" id="cidade" class="form-select" readonly/>
-            </div>
-            <div class="col col-sm-3">
-                <input type="text" th:field="*{endereco.estado}" placeholder="Estado" id="estado" class="form-select" readonly>
-            </div>
-        </div>
-        <input type="submit" class="btn btn-primary" value="Prosseguir"/>
-    </form>
+	<h1 class="fs-1">Novo Pedido - Insira os dados do cliente</h1>
+	<form th:action="@{/pedidos/pesquisar}" method="get">
+		<div class="alert alert-danger" th:if="${error} != null">
+			<p th:text="${error}"></p>
+		</div>
+		<div class="input-group">
+			<select name="tipoCliente" id="tipoCliente"
+					class="btn btn-outline-success dropdown-toggle input-group-prepend">
+				<option class="dropdown-item" value="PF">CPF</option>
+				<option class="dropdown-item" value="PJ">CNPJ</option>
+			</select>
+			<input type="number" class="form-control" placeholder="CNPJ/CPF" name="id" id="id">
+			<input type="submit" class="btn btn-success input-group-append" value="Pesquisar">
+		</div>
+	</form>
+	<form th:object="${cliente}" th:action="@{/pedidos/criar}" method="post">
+		<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+			<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+		</div>
+		<div class="row row-cols-2 my-2">
+			<div class="col col-sm-6">
+				<input type="text" class="form-control" placeholder="Nome Completo" th:field="*{nome}" id="nome"
+					   readonly>
+			</div>
+			<div class="col col-sm-6">
+				<input type="email" class="form-control" placeholder="E-mail" th:field="*{email}" id="email" readonly>
+			</div>
+		</div>
+		<h3 class="fs-3 mt-4 mb-2">Endereço</h3>
+		<div class="row row-cols-2 my-2">
+			<div class="col col-sm-9">
+				<input type="text" class="form-control" placeholder="Logradouro" th:field="*{endereco.nomeRua}"
+					   id="nomeRua" readonly>
+			</div>
+			<div class="col col-sm-3">
+				<input type="number" class="form-control" placeholder="Número" th:field="*{endereco.nrRua}" id="nrRua"
+					   readonly>
+			</div>
+		</div>
+		<div class="row row-cols-3 my-2">
+			<div class="col col-sm-4">
+				<input type="number" class="form-control" placeholder="CEP" th:field="*{endereco.cep}" id="cep"
+					   readonly>
+			</div>
+			<div class="col col-sm-4">
+				<input type="text" class="form-control" placeholder="Complemento (opcional)"
+					   th:field="*{endereco.complemento}" id="complemento" readonly>
+			</div>
+			<div class="col col-sm-4">
+				<input type="text" class="form-control" placeholder="Bairro" th:field="*{endereco.bairro}" id="bairro"
+					   readonly>
+			</div>
+		</div>
+		<div class="row row-cols-2 my-2">
+			<div class="col col-sm-6">
+				<input type="text" placeholder="cidade" th:field="*{endereco.cidade}" id="cidade" class="form-select"
+					   readonly/>
+			</div>
+			<div class="col col-sm-3">
+				<input type="text" th:field="*{endereco.estado}" placeholder="Estado" id="estado" class="form-select"
+					   readonly>
+			</div>
+		</div>
+		<input type="submit" class="btn btn-primary" value="Prosseguir"/>
+	</form>
 
 </div>
 </body>

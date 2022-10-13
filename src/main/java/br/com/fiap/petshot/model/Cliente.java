@@ -1,72 +1,78 @@
 package br.com.fiap.petshot.model;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 public class Cliente {
-    private Integer id;
-    @NotBlank
-    private String nome;
-    private Endereco endereco;
-    @NotBlank
-    private String email;
+	private Integer id;
+	@Valid
+	private Endereco endereco;
+	protected String tipoCliente;
 
-    protected String tipoCliente;
+	public Cliente() {
+	}
 
-    public Cliente() {
-    }
+	public Cliente(Integer id, String nome, Endereco endereco, String email, String tipoCliente) {
+		this.id = id;
+		this.nome = nome;
+		this.endereco = endereco;
+		this.email = email;
+		this.tipoCliente = tipoCliente;
+	}
 
-    public Cliente(Integer id, String nome, Endereco endereco, String email, String tipoCliente) {
-        this.id = id;
-        this.nome = nome;
-        this.endereco = endereco;
-        this.email = email;
-        this.tipoCliente = tipoCliente;
-    }
 
-    public Integer getId() {
-        return id;
-    }
+	@NotBlank(message = "Nome obrigatório")
+	private String nome;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
+	public Endereco getEndereco() {
+		return endereco;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	@NotBlank(message = "Email obrigatório")
+	@Email(message = "Email inválido")
+	private String email;
 
-    public String getTipoCliente() {
-        return tipoCliente;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    @Override
-    public String toString() {
-        return "Cliente{" +
-                "id=" + id +
-                ", name='" + nome + '\'' +
-                ", endereco=" + endereco +
-                ", email='" + email + '\'' +
-                ", tipoCliente='" + tipoCliente + '\'' +
-                '}';
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTipoCliente() {
+		return tipoCliente;
+	}
+
+	@Override
+	public String toString() {
+		return "Cliente{" +
+				"id=" + id +
+				", name='" + nome + '\'' +
+				", endereco=" + endereco +
+				", email='" + email + '\'' +
+				", tipoCliente='" + tipoCliente + '\'' +
+				'}';
+	}
 }
